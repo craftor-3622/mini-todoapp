@@ -1,0 +1,23 @@
+.CreateTodo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.CreateTodo > input {
+  height: 40px;
+  width: 300px;
+  padding: 0 0 0 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.CreateTodo > button {
+  background-color: #2093ff;
+  border: 0;
+  height: 40px;
+  width: 80px;
+  border-radius: 4px;
+  color: white;
+}

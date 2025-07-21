@@ -1,0 +1,9 @@
+.login-form {
+    width: 200px;
+    margin: 0 auto;
+    padding: 8px;
+    border: 1px solid gray;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}

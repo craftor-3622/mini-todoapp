@@ -1,0 +1,23 @@
+.TodoItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+}
+
+.TodoName > span {
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.Tododate {
+    color: #808080;
+    margin-right:  8px;
+}
+
+.DeleteBtn {
+    color: #808080;
+    border: none;
+    border-radius: 4px;
+}

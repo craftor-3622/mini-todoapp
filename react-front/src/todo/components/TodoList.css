@@ -1,0 +1,10 @@
+.Searchbar {
+    border: none;
+    outline: none;
+    padding: 4px;
+    margin-bottom: 8px;
+}
+
+.divider {
+    border: 1.5px solid #cccccc;
+}
