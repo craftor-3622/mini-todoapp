@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import auth, todos, users
+from routers import auth, todos, user
 from database import init_db
 
 app = FastAPI()
@@ -20,5 +20,5 @@ app.add_middleware(
 
 # 라우터 등록
 app.include_router(auth.router)
-app.include_router(users.router)
+app.include_router(user.router)
 app.include_router(todos.router)

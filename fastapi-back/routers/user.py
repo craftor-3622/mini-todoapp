@@ -6,9 +6,9 @@ from models import User
 from auth_utils import hash_password
 from dependencies import get_current_user
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(prefix="/user", tags=["User"])
 
-@router.post("/signup", response_model=UserInfo)
+@router.post("/", response_model=UserInfo)
 def signup(user: UserCreate = Form(...), db: Session = Depends(get_db)):
     if db.query(User).filter(User.username == user.username).first():
         raise HTTPException(status_code=400, detail="Username already exists.")
