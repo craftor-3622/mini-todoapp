@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from fastapi import Form
 from typing import Optional
 from datetime import datetime
 
@@ -8,10 +9,11 @@ class UserCreate(BaseModel):
     username: str
     email: EmailStr
     password: str
+    password_confirm: str
 
 class UserUpdate(BaseModel):
-    email: EmailStr | None = None
-    password: str | None = None
+    email: Optional[EmailStr] = None
+    password: str
 
 class UserInfo(BaseModel):
     id: int

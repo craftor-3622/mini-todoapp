@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 from database import get_db
 from schemas import UserCreate, UserInfo, UserUpdate
@@ -9,9 +9,13 @@ from dependencies import get_current_user
 router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/signup", response_model=UserInfo)
-def signup(user: UserCreate, db: Session = Depends(get_db)):
+def signup(user: UserCreate = Form(...), db: Session = Depends(get_db)):
     if db.query(User).filter(User.username == user.username).first():
-        raise HTTPException(status_code=400, detail="Username exists")
+        raise HTTPException(status_code=400, detail="Username already exists.")
+    
+    if user.password != user.password_confirm:
+        raise HTTPException(status_code=400, detail="Password does not match.")
+    
     new_user = User(
         username=user.username,
         email=user.email,

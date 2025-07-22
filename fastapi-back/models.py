@@ -13,7 +13,7 @@ class User(Base):
     created_at = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at = mapped_column(DateTime(timezone=True), onupdate=func.now(), server_onupdate=func.now())
 
-    threads = relationship("Todo", back_populates="user", cascade="all, delete-orphan")
+    todos = relationship("Todo", back_populates="user", cascade="all, delete-orphan")
 
 
 class Todo(Base):

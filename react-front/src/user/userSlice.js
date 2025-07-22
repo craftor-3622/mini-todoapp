@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { userAPI } from './userAPI'
+import { loginUser } from './userThunk'
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     username: ''
   },
-  extraReducers: {
-
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      
+    });
   },
 })
 
