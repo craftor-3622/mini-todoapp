@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Login.css"
 import { useDispatch } from "react-redux";
+import { loginUser } from "./userThunk";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,8 +16,14 @@ const Login = () => {
     setPassword(e.target.value);
   }
 
-  const onSubmit = () => {
-    dispatch();
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      username: username,
+      password: password,
+    }
+    dispatch(loginUser(data));
   };
 
   return (
