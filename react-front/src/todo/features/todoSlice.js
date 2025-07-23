@@ -24,8 +24,6 @@ export const todoSlice = createSlice({
         target.isDone = !target.isDone;
       }
     }
-  }, extraReducers: {
-
   }
 })
 

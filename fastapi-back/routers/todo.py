@@ -8,7 +8,7 @@ from schemas import TodoCreate, UserTodoInfo, TodoUpdate, TodoDetail
 from dependencies import get_current_user
 from models import User
 
-router = APIRouter(prefix="/todos", tags=["Todos"])
+router = APIRouter(prefix="/todo", tags=["Todo"])
 
 @router.post("/", response_model=TodoDetail, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: TodoCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
@@ -23,7 +23,11 @@ def create_todo(todo: TodoCreate, db: Session = Depends(get_db), current_user: U
     return new_todo
 
 @router.get("/", response_model=List[UserTodoInfo])
-def list_todo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def list_todo(db: Session = Depends(get_db)):
+    return db.query(Todo).all()
+
+@router.get("/my_todos/", response_model=List[UserTodoInfo])
+def list_my_todo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     return db.query(Todo).filter(user_id=current_user.id)
 
 @router.put("/{todo_id}/", response_model=TodoUpdate)
@@ -34,8 +38,6 @@ def update_todo(todo_id: int, update: TodoUpdate, db: Session = Depends(get_db),
     if todo.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not authorized to update this todo")
     
-    if update.content is not None:
-        todo.content = update.content
     if update.isDone is not None:
         todo.isDone = update.isDone
 

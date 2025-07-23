@@ -37,7 +37,6 @@ class TodoCreate(TodoBase):
     pass
 
 class TodoUpdate(BaseModel):
-    content: Optional[str]
     isDone: Optional[bool]
 
 class TodoDetail(TodoBase):
