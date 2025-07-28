@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 import "./TodoList.css"
-import { useSelector } from "react-redux";
+import useUserStore from '../../zustand/stores/useTodoStore'
 
 const TodoList = () => {
-  const todos = useSelector((state) => state.todo.items);
+  const todos = useUserStore((state) => state.todos);
 
   const [search, setSearch] = useState("");
   const onChangeSearch = (e) => {
