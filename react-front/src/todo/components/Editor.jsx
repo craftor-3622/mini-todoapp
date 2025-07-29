@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import "./Editor.css"
 import { useDispatch } from "react-redux";
-import { createTodo } from "../features/todoSlice";
+import { createTodo } from "../../Redux/todo/todoSlice";
 
 const Editor = () => {
   const [content, setContent] = useState("");

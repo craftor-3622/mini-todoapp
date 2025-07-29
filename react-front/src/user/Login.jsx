@@ -1,12 +1,11 @@
 import { useState } from "react";
+import useUserStore from "../zustand/stores/useUserStore";
 import "./Login.css"
-import { useDispatch } from "react-redux";
-import { loginUser } from "./userThunk";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const login = useUserStore((state) => state.login)
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -23,7 +22,8 @@ const Login = () => {
       username: username,
       password: password,
     }
-    dispatch(loginUser(data));
+
+    login(data);
   };
 
   return (

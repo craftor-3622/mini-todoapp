@@ -1,9 +1,9 @@
 import "./TodoItem.css"
-import useUserStore from '../../zustand/stores/useTodoStore'
+import useTodoStore from '../../zustand/stores/useTodoStore'
 
 const TodoItem = ({ todo }) => {
-  const updateTodo = useUserStore((state) => state.updateTodo);
-  const deleteTodo = useUserStore((state) => state.deleteTodo);
+  const updateTodo = useTodoStore((state) => state.updateTodo);
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
 
   return (
     <>

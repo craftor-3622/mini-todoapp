@@ -27,6 +27,7 @@ class UserInfo(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    user: UserInfo
 
 # Todo schemas for API requests and responses
 
