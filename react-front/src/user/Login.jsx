@@ -1,11 +1,13 @@
 import { useState } from "react";
 import useUserStore from "../zustand/stores/useUserStore";
-import "./Login.css"
+import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const login = useUserStore((state) => state.login)
+  const login = useUserStore((state) => state.login);
+  const navigate = useNavigate();
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -24,6 +26,7 @@ const Login = () => {
     }
 
     login(data);
+    navigate('/todo');
   };
 
   return (

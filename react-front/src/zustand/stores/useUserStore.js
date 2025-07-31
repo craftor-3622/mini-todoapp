@@ -1,29 +1,32 @@
 import axios from 'axios';
 import { create } from 'zustand'
+import { persist } from "zustand/middleware"
 
 const BASE_URL = "http://127.0.0.1:8000";
 
-const useUserStore = create((set) => ({
-    user: null,
-    loading: false,
+const useUserStore = create(persist((set) => ({
+    username: null,
 
     login: async (data) => {
-        set({ loading: true });
         try {
             const response = await axios.post(`${BASE_URL}/auth/login`, data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 }
             });
-
-            console.log(response.data);
+            const json = response.data;
+            set({ username: json.user.username }),
+            localStorage.setItem("token", json.access_token);
         } catch (error) {
             console.error("login failed:", error);
-        } finally {
-            set({ loading: false });
         }
+    },
+
+    logout: () => {
+        set({ username: null });
+        localStorage.removeItem("token");
     }
-}))
+})))
 
 export default useUserStore;
 //   create: (data) => axios.post(`${BASE_URL}/user/`, data),
