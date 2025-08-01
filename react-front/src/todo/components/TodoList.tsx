@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 import "./TodoList.css"
-import useUserStore from '../../zustand/stores/useTodoStore'
+import useTodoStore from '../../zustand/stores/useTodoStore'
+import { getTodosAPI } from "../../zustand/api/todoAPI";
 
 const TodoList = () => {
-  const todos = useUserStore((state) => state.todos);
+  const todos = useTodoStore(state => state.todos);
+  const setTodos = useTodoStore((state) => state.setTodos);
 
   const [search, setSearch] = useState("");
-  const onChangeSearch = (e) => {
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   const getFilteredData = () => {
-    if(search === "") {
+    if (search === "") {
       return todos;
     }
     return todos.filter((todo) =>
@@ -20,7 +22,14 @@ const TodoList = () => {
   };
 
   // todo state가 TodoList Component에서 정의됨
-  useEffect(() => { console.log(todos) }, [todos]);
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const data = await getTodosAPI();
+      setTodos(data);
+    }
+
+    fetchTodos();
+  }, []);
 
   return (
     <div className="TodoList">

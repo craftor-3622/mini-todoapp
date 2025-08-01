@@ -2,22 +2,23 @@ import { useState } from "react";
 import useUserStore from "../zustand/stores/useUserStore";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { login } from "../zustand/api/userAPI";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const login = useUserStore((state) => state.login);
+  const [username, setUsernameInput] = useState("");
+  const [password, setPasswordInput] = useState("");
+  const setUsername = useUserStore(state => state.setUsername);
   const navigate = useNavigate();
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
+  const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsernameInput(e.target.value);
   }
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordInput(e.target.value);
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -26,7 +27,8 @@ const Login = () => {
     }
 
     login(data);
-    navigate('/todo');
+    setUsername(username);
+    navigate('/');
   };
 
   return (

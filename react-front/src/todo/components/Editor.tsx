@@ -1,33 +1,32 @@
 import { useRef, useState } from "react";
 import "./Editor.css"
 import { useDispatch } from "react-redux";
-import { createTodo } from "../../Redux/todo/todoSlice";
+import { createTodoAPI } from "../../zustand/api/todoAPI";
+import useTodoStore from "../../zustand/stores/useTodoStore";
 
 const Editor = () => {
   const [content, setContent] = useState("");
-  const contentRef = useRef();
+  const createTodo = useTodoStore(state => state.createTodo);
 
   const dispatch = useDispatch();
 
-  const onChangeContent = (e) => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (content.trim() === "") {
       alert("내용을 입력하세요.");
-      contentRef.current.focus();
       return;
     }
-    dispatch(createTodo(content));
+    createTodo(content);
     setContent("");
   }
 
   return (
     <form className="CreateTodo" onSubmit={onSubmit}>
       <input
-        ref={contentRef}
         type="text"
         value={content}
         onChange={onChangeContent}

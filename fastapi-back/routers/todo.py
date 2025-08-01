@@ -26,9 +26,9 @@ def create_todo(todo: TodoCreate, db: Session = Depends(get_db), current_user: U
 def list_todo(db: Session = Depends(get_db)):
     return db.query(Todo).all()
 
-@router.get("/my_todos/", response_model=List[UserTodoInfo])
-def list_my_todo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    return db.query(Todo).filter(user_id=current_user.id)
+# @router.get("/mine/", response_model=List[UserTodoInfo])
+# def list_my_todo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+#     return db.query(Todo).filter(Todo.user_id==current_user.id).all()
 
 @router.put("/{todo_id}/", response_model=TodoUpdate)
 def update_todo(todo_id: int, update: TodoUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
