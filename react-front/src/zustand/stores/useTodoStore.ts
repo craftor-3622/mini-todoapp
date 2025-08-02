@@ -1,6 +1,4 @@
 import { create } from 'zustand'
-import { getTodosAPI } from '../api/todoAPI'
-import { combine } from 'zustand/middleware';
 import { Todo } from '../../types/todo';
 
 interface TodoStore {
