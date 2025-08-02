@@ -26,11 +26,11 @@ export const createTodoAPI = async (content: string) => {
     }
 }
 
-export const updateTodosAPI = async (todo_id: number, isDone: boolean) => {
+export const updateTodosAPI = async (todoId: number, isDone: boolean) => {
     const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.put(`${BASE_URL}/todo/${todo_id}`,
+        const response = await axios.put(`${BASE_URL}/todo/${todoId}`,
             { "isDone": isDone },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -41,15 +41,14 @@ export const updateTodosAPI = async (todo_id: number, isDone: boolean) => {
     }
 }
 
-export const deleteTodoAPI = async (todo_id: number) => {
+export const deleteTodoAPI = async (todoId: number) => {
     const token = localStorage.getItem("token");
 
     try {
-        await axios.delete(`${BASE_URL}/todo/${todo_id}`,
+        await axios.delete(`${BASE_URL}/todo/${todoId}`,
             { headers: { Authorization: `Bearer ${token}` } }
         );
     } catch (error) {
         console.error(error);
     }
 }
-

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "./Editor.css"
 import { createTodoAPI } from "../../zustand/api/todoAPI";
 import useTodoStore from "../../zustand/stores/useTodoStore";
@@ -11,15 +11,19 @@ const Editor = () => {
     setContent(e.target.value);
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (content.trim() === "") {
       alert("내용을 입력하세요.");
       return;
     }
-    createTodoAPI(content);
-    createTodo(content);
-    setContent("");
+    try {
+      await createTodoAPI(content);
+      createTodo(content);
+      setContent("");
+    } catch (error) {
+      console.log("Create Todo Failed: ", error);
+    }
   }
 
   return (
@@ -30,7 +34,7 @@ const Editor = () => {
         onChange={onChangeContent}
         placeholder="새로운 Todo를 입력하세요."
       />
-      <button>추가</button>
+      <button type="submit">추가</button>
     </form>
   );
 }
