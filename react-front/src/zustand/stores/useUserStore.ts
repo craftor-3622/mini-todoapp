@@ -8,9 +8,9 @@ export interface UserState {
     setUsername: (name: string) => void;
 }
 
-const useUserStore = create<UserState>()((set) => ({
+const useUserStore = create<UserState>()(persist((set) => ({
     username: "",
     setUsername: (username: string) => set({ username }),
-}))
+}), { name: "username" }))
 
 export default useUserStore;

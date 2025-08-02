@@ -10,7 +10,7 @@ from models import User
 
 router = APIRouter(prefix="/todo", tags=["Todo"])
 
-@router.post("/", response_model=TodoDetail, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=TodoDetail, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: TodoCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     new_todo = Todo(
         content=todo.content,
@@ -22,7 +22,7 @@ def create_todo(todo: TodoCreate, db: Session = Depends(get_db), current_user: U
     db.refresh(new_todo)
     return new_todo
 
-@router.get("/", response_model=List[UserTodoInfo])
+@router.get("", response_model=List[UserTodoInfo])
 def list_todo(db: Session = Depends(get_db)):
     return db.query(Todo).all()
 
@@ -30,7 +30,7 @@ def list_todo(db: Session = Depends(get_db)):
 # def list_my_todo(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
 #     return db.query(Todo).filter(Todo.user_id==current_user.id).all()
 
-@router.put("/{todo_id}/", response_model=TodoUpdate)
+@router.put("/{todo_id}", response_model=TodoUpdate)
 def update_todo(todo_id: int, update: TodoUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     todo = db.query(Todo).filter(Todo.id == todo_id).first()
     if not todo:
@@ -45,9 +45,9 @@ def update_todo(todo_id: int, update: TodoUpdate, db: Session = Depends(get_db),
     db.refresh(todo)
     return todo
 
-@router.delete("/{thread_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_todo(thread_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    todo = db.query(Todo).filter(Todo.id == thread_id).first()
+@router.delete("/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_todo(todo_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    todo = db.query(Todo).filter(Todo.id == todo_id).first()
     if not todo:
         raise HTTPException(status_code=404, detail="Todo not found")
     if todo.user_id != current_user.id:

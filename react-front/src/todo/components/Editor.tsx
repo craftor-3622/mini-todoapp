@@ -1,14 +1,11 @@
 import { useRef, useState } from "react";
 import "./Editor.css"
-import { useDispatch } from "react-redux";
 import { createTodoAPI } from "../../zustand/api/todoAPI";
 import useTodoStore from "../../zustand/stores/useTodoStore";
 
 const Editor = () => {
   const [content, setContent] = useState("");
   const createTodo = useTodoStore(state => state.createTodo);
-
-  const dispatch = useDispatch();
 
   const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
@@ -20,6 +17,7 @@ const Editor = () => {
       alert("내용을 입력하세요.");
       return;
     }
+    createTodoAPI(content);
     createTodo(content);
     setContent("");
   }

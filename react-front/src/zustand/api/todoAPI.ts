@@ -3,10 +3,10 @@ import axios from "axios";
 const BASE_URL = "http://127.0.0.1:8000";
 
 export const getTodosAPI = async () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.get(`${BASE_URL}/todo/`);
+        const response = await axios.get(`${BASE_URL}/todo`);
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -17,5 +17,41 @@ export const getTodosAPI = async () => {
 
 export const createTodoAPI = async (content: string) => {
     const token = localStorage.getItem("token");
+
+    try {
+        await axios.post(`${BASE_URL}/todo`,
+            { "content": content },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const updateTodosAPI = async (todo_id: number, isDone: boolean) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await axios.put(`${BASE_URL}/todo/${todo_id}`,
+            { "isDone": isDone },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const deleteTodoAPI = async (todo_id: number) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        await axios.delete(`${BASE_URL}/todo/${todo_id}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+    } catch (error) {
+        console.error(error);
+    }
 }
 

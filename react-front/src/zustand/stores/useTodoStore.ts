@@ -30,7 +30,7 @@ const useTodoStore = create<TodoStore>()((set) => ({
             id: nextId,
             content: content,
             isDone: false,
-            date: new Date(),
+            created_at: new Date(),
         }
 
         return {

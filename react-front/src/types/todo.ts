@@ -2,5 +2,5 @@ export type Todo = {
     id: number;
     content: string;
     isDone: boolean;
-    date: Date;
+    created_at: Date;
 }
